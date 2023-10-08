@@ -1,6 +1,3 @@
-
-
-// loadAllData();
 let allTasks = []; // Danh sách tất cả nhiệm vụ ban đầu
 let filteredTasks = []; // Danh sách nhiệm vụ sau khi lọc
 
@@ -22,9 +19,6 @@ function loadAllData() {
 }
 
 loadAllData();
-
-
-
 
 // Hàm để hiển thị danh sách nhiệm vụ
 function displayTasks(tasks) {
@@ -75,13 +69,8 @@ function displayTasks(tasks) {
     });
 }
 
-// ...
-
 // Gọi hàm loadAllData() để tải danh sách nhiệm vụ và kiểm tra đến hạn
 loadAllData();
-
-
-// ...
 
 // Sự kiện click cho nút "Search"
 $('#search-button').click(function (e) {
@@ -103,7 +92,6 @@ $('#search-button').click(function (e) {
 function refreshData() {
     loadAllData();
 }
-
 
 $('#addBtn').click(() => {
     const title = $('#title').val();
@@ -194,11 +182,11 @@ function changeBodyBackground(url) {
     document.body.style.backgroundSize = 'cover';
 }
 
-// Ví dụ: Gọi hàm changeBodyBackground khi người dùng nhấn nút "Thay đổi nền"
+//Gọi hàm changeBodyBackground khi người dùng nhấn nút "Thay đổi nền"
 document.getElementById('changeBackgroundButton').addEventListener('click', function () {
     const newBackgroundUrl = prompt('Nhập URL của hình nền mới:');
     if (newBackgroundUrl) {
         changeBodyBackground(newBackgroundUrl);
     }
 });
-//
+

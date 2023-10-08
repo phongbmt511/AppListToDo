@@ -1,9 +1,8 @@
-// chat.js
 const express = require('express');
-const { Chat } = require('../model/task');
+const Chat = require('../model/chatdb');
 const router = express.Router();
 
-// Define your routes without /api prefix
+
 router.get('/chat', (req, res) => {
     Chat.find({}, (err, chatData) => {
         if (err) {

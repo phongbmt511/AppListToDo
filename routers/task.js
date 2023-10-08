@@ -3,11 +3,6 @@ const TaskModel = require('../model/task')
 const router = express.Router()
 
 function convertStringToDate(stringDate) {
-    // const arr = stringDate.split('-');
-    // const year = parseInt(arr[2])
-    // const month = parseInt(arr[0]) - 1
-    // const day = parseInt(arr[1]) + 1
-    // return new Date(year, month, day);
     return new Date(stringDate)
 }
 
@@ -44,8 +39,6 @@ router.get('/:id', (req, res, next) => {
         })
 
 })
-
-
 
 router.post('/', (req, res, next) => {
     TaskModel.create({
@@ -86,7 +79,5 @@ router.delete('/:id', (req, res, next) => {
             res.status(500).json(err)
         })
 })
-
-
 
 module.exports = router;

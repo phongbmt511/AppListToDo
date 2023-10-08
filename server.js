@@ -1,28 +1,27 @@
 const express = require('express');
 const http = require('http');
-const path = require('path')
+const path = require('path');
 const socketIO = require("socket.io");
-const { Chat } = require('./model/task');
-const app = express()
+const Chat = require('./model/chatdb'); // Import the Chat model
+const app = express();
 const server = http.createServer(app);
 const io = socketIO(server);
-const bodyParser = require('body-parser')
+const bodyParser = require('body-parser');
 app.use(bodyParser.urlencoded({ extended: false }))
 app.use(bodyParser.json())
 const taskRouter = require('./routers/task')
 const chatRouter = require('./routers/chat');
 app.use('/api/tasks', taskRouter)
-app.use('/api/chat', chatRouter);
+
 app.use('/public', express.static(path.join(__dirname, '/public')));
 
 app.get('/', (req, res, next) => {
     res.sendFile(path.join(__dirname, 'index.html'))
 })
-
+app.use('/api/chat', chatRouter);
 app.get('/chat', (req, res) => {
     res.sendFile(__dirname + '/Chat.html')
 })
-
 
 const activeUsers = new Set();
 
