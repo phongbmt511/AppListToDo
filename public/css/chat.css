@@ -1,0 +1,79 @@
+/* style.css */
+body {
+  font-family: Arial, sans-serif;
+  margin: 0;
+  padding: 0;
+}
+
+#messenger-container {
+  display: flex;
+}
+
+#chat-sidebar {
+  width: 25%;
+  background-color: #f2f2f2;
+  padding: 20px;
+  border-right: 1px solid #ccc;
+}
+
+.friend {
+  display: flex;
+  align-items: center;
+  margin-bottom: 10px;
+}
+
+.friend img {
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  margin-right: 10px;
+}
+
+#chat {
+  flex: 1;
+  padding: 20px;
+}
+
+#chat-header {
+  text-align: center;
+  margin-bottom: 20px;
+  font-weight: bold;
+}
+
+#messages {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  overflow-y: auto;
+  max-height: 300px;
+}
+
+#messages li {
+  margin-bottom: 10px;
+}
+
+#chat-form {
+  display: flex;
+  align-items: center;
+}
+
+#chat-mes {
+  flex: 1;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  margin-right: 10px;
+}
+
+#send-chat {
+  padding: 10px 20px;
+  background-color: #007bff;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+#send-chat:hover {
+  background-color: #0056b3;
+}

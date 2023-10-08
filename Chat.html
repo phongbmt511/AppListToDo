@@ -1,0 +1,113 @@
+<!-- Chat.html -->
+<!DOCTYPE html>
+<html lang="en">
+  <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <link rel="stylesheet" href="./public/css/chat.css" />
+  <body>
+     <div id="messenger-container">
+      <div id="chat-sidebar">
+        <!-- Thêm danh sách bạn bè, avatar, và tên của họ -->
+        <div class="friend"></div>
+
+        <!-- Thêm thêm bạn bè tại đây nếu cần -->
+      </div>
+      <div id="chat">
+        <div id="chat-header">
+          <!-- Hiển thị tên của bạn đang trò chuyện -->
+          <span>You are chatting with: Friend 1</span>
+        </div>
+        <ul id="messages">
+          <!-- Hiển thị tin nhắn trong cuộc trò chuyện -->
+        </ul>
+        <form id="chat-form">
+          <input type="text" id="chat-mes" />
+          <button id="send-chat">Send</button>
+        </form>
+      </div>
+    </div>
+    <script src="/socket.io/socket.io.js"></script>
+    <script>
+      const socket = io();
+
+      const name = prompt("Tên bạn là gì ?");
+      const chatSidebar = document.querySelector("#chat-sidebar");
+
+      // Tạo một thẻ div chứa hình ảnh và tên người dùng
+      const friendDiv = document.createElement("div");
+      friendDiv.classList.add("friend");
+
+      // Tạo một thẻ div chứa hình ảnh
+      const friendInfoDiv = document.createElement("div");
+      friendInfoDiv.classList.add("friend-info");
+
+      // Tạo thẻ hình ảnh và thiết lập thuộc tính src và alt
+      const img = document.createElement("img");
+      img.src =
+        "image";
+      img.alt = "Friend 1";
+
+      // Tạo một thẻ span để hiển thị tên người dùng và đặt nội dung là tên người dùng
+      const usernameSpan = document.createElement("span");
+      usernameSpan.textContent = name;
+
+      // Gắn các thẻ con vào thẻ cha
+      friendInfoDiv.appendChild(img);
+      friendInfoDiv.appendChild(usernameSpan);
+      friendDiv.appendChild(friendInfoDiv);
+
+      // Gắn thẻ cha vào chat-sidebar
+      chatSidebar.appendChild(friendDiv);
+
+      const chatForm = document.querySelector("#chat-form");
+      const chatMes = document.querySelector("#chat-mes");
+      chatForm.addEventListener("submit", (e) => {
+        e.preventDefault();
+        const message = chatMes.value;
+        // Gửi tin nhắn đến server
+        socket.emit("on-chat", {
+          name,
+          message,
+        });
+        chatMes.value = "";
+      });
+
+      const messages = document.querySelector("#messages");
+
+      // Lắng nghe sự kiện nhận tin nhắn từ server và hiển thị chúng
+      socket.on("user-chat", (message) => {
+        const chatItem = document.createElement("li");
+        chatItem.textContent = `${message.name}: ${message.message}`;
+        messages.appendChild(chatItem);
+      });
+
+      // Lắng nghe sự kiện cập nhật danh sách người dùng
+      socket.on("update-active-users", (activeUsers) => {
+        // Xóa toàn bộ nội dung trong thanh sidebar
+        chatSidebar.innerHTML = "";
+
+        // Duyệt qua danh sách người dùng và hiển thị họ trên thanh sidebar
+        activeUsers.forEach((user) => {
+          const friendDiv = document.createElement("div");
+          friendDiv.classList.add("friend");
+          const friendInfoDiv = document.createElement("div");
+          friendInfoDiv.classList.add("friend-info");
+          const img = document.createElement("img");
+          img.src = "https://haycafe.vn/wp-content/uploads/2022/02/Hinh-anh-avatar-facebook-doc-nen-ombre.jpg"; // Thay URL_Hinh_Avatar_Cua_User bằng URL thích hợp
+          img.alt = user;
+          const usernameSpan = document.createElement("span");
+          usernameSpan.textContent = user;
+          friendInfoDiv.appendChild(img);
+          friendInfoDiv.appendChild(usernameSpan);
+          friendDiv.appendChild(friendInfoDiv);
+          chatSidebar.appendChild(friendDiv);
+        });
+      });
+
+      // Gửi tên người dùng đến server khi kết nối
+      socket.emit("set-username", name);
+    </script>
+  </body>
+</html>

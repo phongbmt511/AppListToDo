@@ -5,5 +5,70 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Document</title>
   </head>
-  <body></body>
+  <link rel="stylesheet" href="./public/css/chat.css" />
+  <body>
+    <div id="messenger-container">
+      <div id="chat-sidebar">
+        <!-- Thêm danh sách bạn bè, avatar, và tên của họ -->
+        <div class="friend">
+          <img
+            src="https://i0.wp.com/thatnhucuocsong.com.vn/wp-content/uploads/2022/04/Anh-avatar-dep-anh-dai-dien-FB-Tiktok-Zalo.jpg?ssl=1"
+            alt="Friend 1"
+          />
+          <span id="name_1"></span>
+        </div>
+        <div class="friend">
+          <img
+            src="https://bizweb.dktcdn.net/100/438/408/files/avatar-dep-cho-nam-yody-vn.jpg?v=1683516280828"
+            alt="Friend 2"
+          />
+          <span id="name_2"></span>
+        </div>
+        <!-- Thêm thêm bạn bè tại đây nếu cần -->
+      </div>
+      <div id="chat">
+        <div id="chat-header">
+          <!-- Hiển thị tên của bạn đang trò chuyện -->
+          <span>You are chatting with: Friend 1</span>
+        </div>
+        <ul id="messages">
+          <!-- Hiển thị tin nhắn trong cuộc trò chuyện -->
+        </ul>
+        <form id="chat-form">
+          <input type="text" id="chat-mes" />
+          <button id="send-chat">Send</button>
+        </form>
+      </div>
+    </div>
+  </body>
+  <script src="/socket.io/socket.io.js"></script>
+  <script>
+    const socket = io();
+    const name = prompt("tên bạn là gì ?");
+    const chatSidebar = document.querySelector("#chat-sidebar");
+
+    // Tạo một thẻ span để hiển thị tên người dùng
+    const usernameSpan = document.createElement("span");
+    usernameSpan.textContent = name; // Đặt nội dung là tên người dùng
+    // Thêm thẻ span vào chat-sidebar
+    chatSidebar.appendChild(usernameSpan);
+    const chatForm = document.querySelector("#chat-form");
+    const chatMes = document.querySelector("#chat-mes");
+    chatForm.addEventListener("submit", (e) => {
+      e.preventDefault();
+      const message = chatMes.value;
+      socket.emit("on-chat", {
+        name,
+        message,
+      });
+      chatMes.value = "";
+    });
+
+    const messages = document.querySelector("#messages");
+    socket.on("user-chat", (message) => {
+      const chatItem = document.createElement("li");
+      chatItem.textContent = `${message.name}:${message.message}`;
+      messages.appendChild(chatItem);
+    });
+  </script>
 </html>
