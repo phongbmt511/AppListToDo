@@ -245,5 +245,12 @@
       crossorigin="anonymous"
     ></script>
     <script src="./public/js/main.js"></script>
+    <script>
+      const loggedInUser = JSON.parse(localStorage.getItem("loggedInUser"));
+      if (!loggedInUser) {
+        // Nếu không có thông tin đăng nhập, chuyển hướng đến trang login.html
+        window.location.href = "login.html";
+      }
+    </script>
   </body>
 </html>

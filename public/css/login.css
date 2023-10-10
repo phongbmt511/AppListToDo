@@ -1,0 +1,85 @@
+body {
+  background-image: linear-gradient(
+    180.3deg,
+    rgba(214, 224, 255, 1) 37.2%,
+    rgba(254, 168, 168, 1) 137.3%
+  );
+  height: 100vh;
+  overflow: hidden;
+}
+
+.login {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  width: 100%;
+}
+
+.login__container {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  padding: 30px;
+  border-radius: 10px;
+  background-color: #fff;
+  border: 1px solid rgb(0, 0, 0, 0.1);
+  box-shadow: rgba(60, 64, 67, 0.3) 0px 1px 2px 0px,
+    rgba(60, 64, 67, 0.15) 0px 2px 6px 2px;
+}
+
+.login .title {
+  color: rgb(30, 30, 30);
+  font-size: 20px;
+  font-weight: bold;
+  margin: 20px auto 10px;
+}
+
+.login input {
+  width: 300px;
+  border-radius: 4px;
+  margin: 10px auto;
+  padding: 11px 15px;
+  background-color: rgb(245, 245, 245);
+  outline: none;
+  border: 1px solid rgb(0, 0, 0, 0);
+  font-size: 15px;
+  color: rgb(30, 30, 30);
+  transition: 0.3s;
+}
+.login input::placeholder {
+  color: rgb(200, 200, 200);
+}
+.login input:hover {
+  background-color: #f1eff1;
+}
+.login input:focus {
+  background-color: #fff;
+  border: 1px solid rgb(87, 126, 219);
+  box-shadow: 0 0 4px 2px rgb(50, 50, 50, 0.1);
+}
+.login input:valid {
+  border: 1px solid rgb(220, 220, 220);
+}
+
+.login__signInButton {
+  border-radius: 4px;
+  background-color: rgb(87, 126, 219);
+  height: 45px;
+  padding: 12px;
+  width: 260px;
+  font-size: 14px;
+  font-weight: 500;
+  color: white;
+  border: none;
+  cursor: pointer;
+  margin: 20px auto;
+  transition: 0.3s;
+  margin-left: 30px;
+}
+
+.login a {
+  text-decoration: none;
+  color: rgb(160, 160, 160);
+  font-size: 15px;
+}
