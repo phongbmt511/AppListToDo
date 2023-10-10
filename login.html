@@ -3,15 +3,15 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Login</title>
+    <title>Document</title>
     <link rel="stylesheet" href="./public/css/login.css" />
   </head>
   <body>
     <div class="login">
       <div class="login__container">
-        <h1>Đăng Nhập</h1>
+        <h1>LOGIN</h1>
         <form id="loginForm">
-          <h5 for="username">Tên đăng nhập</h5>
+          <h5 for="username">Username</h5>
           <input
             type="text"
             class="input-login-username"
@@ -19,7 +19,7 @@
             name="username"
             required
           />
-          <h5 for="password">Mật khẩu</h5>
+          <h5 for="password">Password</h5>
           <input
             type="password"
             class="input-login-password"
@@ -28,7 +28,7 @@
             required
           />
           <br />
-          <button type="submit" class="login__signInButton">Đăng Nhập</button>
+          <button type="submit" class="login__signInButton">Login</button>
         </form>
       </div>
     </div>
@@ -45,17 +45,16 @@
         e.preventDefault();
         const username = document.getElementById("username").value;
         const password = document.getElementById("password").value;
-
-        // Kiểm tra và xử lý đăng nhập ở đây
+        // check va xu ly login o day
         const user = users.find(
           (u) => u.username === username && u.password === password
         );
 
         if (user) {
           localStorage.setItem("loggedInUser", JSON.stringify(user));
-          window.location.href = "index.html"; // Chuyển hướng sau khi đăng nhập thành công
+          window.location.href = "index.html"; // chuyen sang index sau khi login thanh cong
         } else {
-          alert("Tên đăng nhập hoặc mật khẩu không đúng!");
+          alert("Username or password incorrect!");
         }
       });
     </script>

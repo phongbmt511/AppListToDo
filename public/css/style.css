@@ -112,7 +112,6 @@ body {
 }
 .todo-list li span {
   color: white;
-  /* font-size: 13px */
 }
 .editBtn {
   cursor: pointer;
@@ -144,7 +143,6 @@ body {
 .deleteBtn:hover {
   background-color: rgb(52, 53, 53);
   border-radius: 80px;
-  /* padding: 4px 6px; */
   color: 0 2px 4px rgba(0, 0, 0, 0.2) !important;
 }
 .face {
@@ -165,14 +163,14 @@ body {
   transform: translate(-50%, -50%);
   opacity: 30%;
 }
-/* --------------------------------------- */
+/* css nhiem vu hoan thanh */
 .completed {
   text-decoration: line-through; /* Kiểu gạch ngang cho nhiệm vụ đã hoàn thành */
 }
 .form-check-input {
   margin-right: 30px;
 }
-/* CSS cho nhiệm vụ đã đến hạn */
+/* css nhiem vu den han */
 .deadline-passed {
   text-decoration: line-through; /* Gạch ngang nhiệm vụ đã đến hạn */
   text-decoration-color: yellow;

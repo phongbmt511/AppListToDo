@@ -12,6 +12,6 @@ const taskSchema = new Schema({
     deadline: Date
 });
 
-const TaskModel = mongoose.model('task', taskSchema); // Use 'Task' as the model name
+const TaskModel = mongoose.model('task', taskSchema);
 
-module.exports = TaskModel; // Export the TaskModel
+module.exports = TaskModel; 

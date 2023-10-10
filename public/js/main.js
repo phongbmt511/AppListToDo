@@ -1,5 +1,5 @@
-let allTasks = []; // Danh sách tất cả nhiệm vụ ban đầu
-let filteredTasks = []; // Danh sách nhiệm vụ sau khi lọc
+let allTasks = []; // list nhiem vu ban dau
+let filteredTasks = []; // list nhiem vu sau khi loc
 
 function loadAllData() {
     $.ajax({
@@ -7,24 +7,21 @@ function loadAllData() {
         type: 'GET'
     })
         .then(data => {
-            allTasks = data; // Lưu danh sách tất cả các nhiệm vụ
-            filteredTasks = data; // Ban đầu, danh sách sau khi lọc sẽ giống danh sách tất cả
-            displayTasks(filteredTasks); // Hiển thị danh sách sau khi lọc
-
+            allTasks = data; // luu list tat ca nhiem vu
+            filteredTasks = data; // list ban dau
+            displayTasks(filteredTasks); // hien thi list sau khi loc
         })
         .catch(err => {
             console.log("error");
         });
 
 }
-
 loadAllData();
 
-// Hàm để hiển thị danh sách nhiệm vụ
+// ham hien thi list nhiem vu
 function displayTasks(tasks) {
     $('#content').html('');
-    const currentDate = new Date(); // Lấy ngày hiện tại
-
+    const currentDate = new Date(); // lay date hien tai
     for (let i = 0; i < tasks.length; i++) {
         const element = tasks[i];
         const rawDeadline = new Date(element.deadline);
@@ -34,33 +31,28 @@ function displayTasks(tasks) {
         editBtn.click(function () {
             editTaskById(element._id);
         });
-
-        // Kiểm tra xem nhiệm vụ đã đến hạn hay chưa
+        // check nhiem vu da den han chua
         if (rawDeadline <= currentDate) {
-            li.addClass('deadline-passed'); // Thêm lớp CSS để đánh dấu nhiệm vụ đã đến hạn
+            li.addClass('deadline-passed'); // nhiem vu da den han
             const notificationContent = `Nhiệm vụ "${element.title}" đã đến hạn vào ngày ${formattedDeadline}`;
-
-            // Cập nhật nội dung modal
+            // cap nhap noi dung modal
             $('#notificationContent').text(notificationContent);
-
-            // Hiển thị modal
+            // show modal
             $('#notificationModal').modal('show');
         }
-
-        // Lắng nghe sự kiện thay đổi checkbox
+        // lang nghe su kien check box 
         const checkbox = li.find(`#checkbox_${element._id}`);
         checkbox.change(function () {
             const isChecked = checkbox.prop('checked');
             if (isChecked) {
-                // Hiển thị thông báo đã hoàn thành và gạch ngang nhiệm vụ
+                // hien thi thong bao nhiem vu da hoan thanh va gach ngang nhiem vu
                 li.addClass('completed');
                 prompt('Thông báo', 'Đánh dấu hoàn thành !');
             } else {
-                // Loại bỏ gạch ngang khi bỏ chọn checkbox
+                // xoa bo gach ngang sau khi bo check box
                 li.removeClass('completed');
             }
         });
-
         li.append(editBtn);
         $('#content').append(li);
     }
@@ -69,29 +61,25 @@ function displayTasks(tasks) {
     });
 }
 
-// Gọi hàm loadAllData() để tải danh sách nhiệm vụ và kiểm tra đến hạn
+//goi lai ham loaddata de tai lai list nhiem vu va check den han
 loadAllData();
 
-// Sự kiện click cho nút "Search"
+// su kien nut search
 $('#search-button').click(function (e) {
-    e.preventDefault(); // Ngăn chặn hành động mặc định của nút "Search" (tránh làm trang web tải lại)
-
-    // Lấy giá trị từ ô tìm kiếm
+    e.preventDefault(); // ngan trang web tai lai du lieu
+    // lay value tu o search
     let key = $('#search-input').val().trim();
-
-    // Lọc danh sách nhiệm vụ theo tiêu đề
+    // loc list nhiem vu theo tieu de
     filteredTasks = allTasks.filter(task => task.title.includes(key));
-
-    // Hiển thị danh sách sau khi lọc
+    // hien thi list sau khi loc
     displayTasks(filteredTasks);
 });
 
-// ...
-
-// Gọi lại hàm loadAllData() để cập nhật danh sách nhiệm vụ sau khi chỉnh sửa hoặc xóa
+// goi lai ham loadalldata de cap nhap list nhiem vu sau khi edit va delete
 function refreshData() {
     loadAllData();
 }
+// su kien nut add
 
 $('#addBtn').click(() => {
     const title = $('#title').val();
@@ -106,8 +94,6 @@ $('#addBtn').click(() => {
     })
         .then(data => {
             alert('Thêm thành công');
-            //allTasks.push(data); // Cập nhật danh sách tất cả nhiệm vụ
-            // const li = $(`<li class="list-group-item" id=${data._id}>${data.title} - <b>${data.deadline}</b> <button type="button" class="deleteBtn btn btn-primary">Delete</button></li>`);
             const li = $(`<li class="list-group-item" id=${data._id}>${data.title} - <b>${data.deadline}</b><span class="span-button"><i class="deleteBtn fa-solid fa-trash"></i></span></li>`);
             $('#content').append(li);
             $('.deleteBtn').click(function () {
@@ -116,9 +102,11 @@ $('#addBtn').click(() => {
             loadAllData();
         })
         .catch(err => {
-            alert("Thêm thất bại");
+            alert("Error");
         });
 });
+
+// su kien nut icon delete
 
 function deleteById(id) {
     $.ajax({
@@ -126,12 +114,15 @@ function deleteById(id) {
         type: 'DELETE'
     })
         .then(data => {
+            alert('Xóa thành công');
             $('#' + id).remove();
         })
         .catch(err => {
-            console.log("Lỗi khi xóa");
+            console.log("Error");
         });
 }
+
+// su kien nut icon edit
 
 function editTaskById(id) {
     $.ajax({
@@ -145,9 +136,11 @@ function editTaskById(id) {
             $('#editModal').modal('show');
         })
         .catch(err => {
-            console.log("Error loading task for editing");
+            console.log("Error");
         });
 }
+
+// su li su kien click luu edit
 
 $('#saveEditBtn').click(function () {
     const id = $('#editTaskId').val();
@@ -171,18 +164,18 @@ $('#saveEditBtn').click(function () {
             loadAllData();
         })
         .catch(err => {
-            console.log("Error saving edited task");
+            console.log("Error");
         });
 });
 
 
-// Định dạng hàm để thay đổi nền của <body>
+// ham thay doi background body
 function changeBodyBackground(url) {
     document.body.style.background = `url('${url}') no-repeat center center fixed`;
     document.body.style.backgroundSize = 'cover';
 }
 
-//Gọi hàm changeBodyBackground khi người dùng nhấn nút "Thay đổi nền"
+// goi ham changeBodyBackground khi click background
 document.getElementById('changeBackgroundButton').addEventListener('click', function () {
     const newBackgroundUrl = prompt('Nhập URL của hình nền mới:');
     if (newBackgroundUrl) {
