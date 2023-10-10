@@ -8,18 +8,13 @@
   <body>
      <div id="messenger-container">
       <div id="chat-sidebar">
-        <!-- Thêm danh sách bạn bè, avatar, và tên của họ -->
         <div class="friend"></div>
-
-        <!-- Thêm thêm bạn bè tại đây nếu cần -->
       </div>
       <div id="chat">
         <div id="chat-header">
-          <!-- Hiển thị tên của bạn đang trò chuyện -->
           <span>Chatting :</span>
         </div>
         <ul id="messages">
-          <!-- Hiển thị tin nhắn trong cuộc trò chuyện -->
         </ul>
         <form id="chat-form">
           <input type="text" id="chat-mes" />
@@ -30,71 +25,64 @@
     <script src="/socket.io/socket.io.js"></script>
     <script>
       const socket = io();
-
       const name = prompt("Tên bạn là gì ?");
       const chatSidebar = document.querySelector("#chat-sidebar");
-
-      // Tạo một thẻ div chứa hình ảnh và tên người dùng
+      // tao div chua image va ten nguoi dung
       const friendDiv = document.createElement("div");
       friendDiv.classList.add("friend");
-
-      // Tạo một thẻ div chứa hình ảnh
+      // tao div chua image
       const friendInfoDiv = document.createElement("div");
       friendInfoDiv.classList.add("friend-info");
-
-      // Tạo thẻ hình ảnh và thiết lập thuộc tính src và alt
+      
+      // tao the image va thiet lap thuoc tinh src va alt
       const img = document.createElement("img");
       img.src =
         "image";
       img.alt = "Friend 1";
 
-      // Tạo một thẻ span để hiển thị tên người dùng và đặt nội dung là tên người dùng
+      // tao the span hien thi ten nguoi dung va dat noi dung la ten nguoi dung
       const usernameSpan = document.createElement("span");
       usernameSpan.textContent = name;
 
-      // Gắn các thẻ con vào thẻ cha
+      // gan the con vao the cha
       friendInfoDiv.appendChild(img);
       friendInfoDiv.appendChild(usernameSpan);
       friendDiv.appendChild(friendInfoDiv);
 
-      // Gắn thẻ cha vào chat-sidebar
+      // gan the cha vao chat-sidebar
       chatSidebar.appendChild(friendDiv);
-
       const chatForm = document.querySelector("#chat-form");
       const chatMes = document.querySelector("#chat-mes");
       chatForm.addEventListener("submit", (e) => {
         e.preventDefault();
         const message = chatMes.value;
-        // Gửi tin nhắn đến server
+        // gui tin nhan den server
         socket.emit("on-chat", {
           name,
           message,
         });
         chatMes.value = "";
       });
-
       const messages = document.querySelector("#messages");
-
-      // Lắng nghe sự kiện nhận tin nhắn từ server và hiển thị chúng
+      // lang nghe su kien nhan tin nhan tu server va hien thi chung
       socket.on("user-chat", (message) => {
         const chatItem = document.createElement("li");
         chatItem.textContent = `${message.name}: ${message.message}`;
         messages.appendChild(chatItem);
       });
 
-      // Lắng nghe sự kiện cập nhật danh sách người dùng
+      // lang nghe su kien cap nhap list nguoi dung
       socket.on("update-active-users", (activeUsers) => {
-        // Xóa toàn bộ nội dung trong thanh sidebar
+        // xoa all noi dung trong sidebar
         chatSidebar.innerHTML = "";
-
-        // Duyệt qua danh sách người dùng và hiển thị họ trên thanh sidebar
+        // duyet qua list user va hien thi tren sidebar
         activeUsers.forEach((user) => {
           const friendDiv = document.createElement("div");
           friendDiv.classList.add("friend");
           const friendInfoDiv = document.createElement("div");
           friendInfoDiv.classList.add("friend-info");
           const img = document.createElement("img");
-          img.src = "https://haycafe.vn/wp-content/uploads/2022/02/Hinh-anh-avatar-facebook-doc-nen-ombre.jpg"; // Thay URL_Hinh_Avatar_Cua_User bằng URL thích hợp
+          img.src = "https://haycafe.vn/wp-content/uploads/2022/02/Hinh-anh-avatar-facebook-doc-nen-ombre.jpg"; // thay doi url image
           img.alt = user;
           const usernameSpan = document.createElement("span");
           usernameSpan.textContent = user;
@@ -105,7 +93,7 @@
         });
       });
 
-      // Gửi tên người dùng đến server khi kết nối
+      //gui ten user den server khi connect
       socket.emit("set-username", name);
     </script>
   </body>

@@ -12,11 +12,12 @@ app.use(bodyParser.json())
 const taskRouter = require('./routers/task')
 const chatRouter = require('./routers/chat');
 app.use('/api/tasks', taskRouter)
-app.use('/public', express.static(path.join(__dirname, '/public')));
+app.use('/public', express.static(path.join(__dirname, '/public')));// ep kieu du lieu
 // login
 app.get('/', (req, res) => {
     res.sendFile(__dirname + '/login.html')
 })
+
 // index
 app.get('/index.html', (req, res, next) => {
     res.sendFile(path.join(__dirname, 'index.html'))

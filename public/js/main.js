@@ -156,11 +156,11 @@ $('#saveEditBtn').click(function () {
     })
         .then(data => {
             $('#editModal').modal('hide');
-            // Update the task in the task list
+            // Update list nhiem vu 
             const taskItem = $('#' + id);
             const formattedDeadline = new Date(deadline).toLocaleDateString();
-            taskItem.find('.todo-text').eq(0).text(title); // Update the title
-            taskItem.find('.todo-text').eq(1).text(formattedDeadline); // Update the deadline text
+            taskItem.find('.todo-text').eq(0).text(title); // Update title
+            taskItem.find('.todo-text').eq(1).text(formattedDeadline); // Update deadline
             loadAllData();
         })
         .catch(err => {
@@ -169,17 +169,36 @@ $('#saveEditBtn').click(function () {
 });
 
 
-// ham thay doi background body
-function changeBodyBackground(url) {
+// ham luu background vao localstorage 
+function saveBackgroundToLocalStorage(url) {
+    localStorage.setItem('backgroundImage', url);
+}
+
+
+// ham lay trang thai tu localstorage
+function getBackgroundFromLocalStorage() {
+    return localStorage.getItem('backgroundImage');
+}
+
+// ham cai dat nen cho body
+function setBodyBackground(url) {
     document.body.style.background = `url('${url}') no-repeat center center fixed`;
     document.body.style.backgroundSize = 'cover';
 }
 
-// goi ham changeBodyBackground khi click background
+// check xem backgorund co luu trong localstorage ko
+const savedBackground = getBackgroundFromLocalStorage();
+if (savedBackground) {
+    setBodyBackground(savedBackground);
+}
+
+// su kien click thay doi background
 document.getElementById('changeBackgroundButton').addEventListener('click', function () {
     const newBackgroundUrl = prompt('Nhập URL của hình nền mới:');
     if (newBackgroundUrl) {
-        changeBodyBackground(newBackgroundUrl);
+        setBodyBackground(newBackgroundUrl);
+        saveBackgroundToLocalStorage(newBackgroundUrl);
     }
 });
-//
+
+
