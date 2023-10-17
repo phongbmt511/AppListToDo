@@ -47,7 +47,7 @@ function displayTasks(tasks) {
             if (isChecked) {
                 // hien thi thong bao nhiem vu da hoan thanh va gach ngang nhiem vu
                 li.addClass('completed');
-                prompt('Thông báo', 'Đánh dấu hoàn thành !');
+                prompt('Thông báo', 'Hoàn thành nhiệm vụ ');
             } else {
                 // xoa bo gach ngang sau khi bo check box
                 li.removeClass('completed');
@@ -194,7 +194,7 @@ if (savedBackground) {
 
 // su kien click thay doi background
 document.getElementById('changeBackgroundButton').addEventListener('click', function () {
-    const newBackgroundUrl = prompt('Nhập URL của hình nền mới:');
+    const newBackgroundUrl = prompt('Nhập URL background mới :');
     if (newBackgroundUrl) {
         setBodyBackground(newBackgroundUrl);
         saveBackgroundToLocalStorage(newBackgroundUrl);

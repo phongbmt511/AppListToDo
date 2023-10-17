@@ -258,15 +258,21 @@
       const audio = new Audio("public/Music/musix-chill.mp3");
       let isPlaying = false;
 
+      audio.addEventListener("ended", function () {
+        // khi nhac ket thuc no se chay lai
+        this.currentTime = 0; // dat thoi gian tro ve 0
+        this.play();
+      });
+
       document
         .getElementById("startAudioButton")
         .addEventListener("click", function () {
           if (isPlaying) {
-            // neu nhac dang play thi pause nó
+            // neu nhac dang chay thi dung no
             audio.pause();
             isPlaying = false;
           } else {
-            // neu nhac chua play thi play no
+            // neu nhac chua chay thi chay no
             audio.play();
             isPlaying = true;
           }
