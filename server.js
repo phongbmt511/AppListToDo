@@ -44,18 +44,18 @@ io.on("connection", (socket) => {
         // xu li tin nhan va gui lai cho all user
         io.emit("user-chat", message);
         // luu tin nhan vao mongodb
-        const newChat = new Chat({
-            username: message.name,
-            message: message.message,
-            timestamp: new Date(),
-        });
-        newChat.save()
-            .then(() => {
-                console.log('Save mongodb success');
-            })
-            .catch(err => {
-                console.error('Error save mongodb', err);
-            });
+        // const newChat = new Chat({
+        //     username: message.name,
+        //     message: message.message,
+        //     timestamp: new Date(),
+        // });
+        // newChat.save()
+        //     .then(() => {
+        //         console.log('Save mongodb success');
+        //     })
+        //     .catch(err => {
+        //         console.error('Error save mongodb', err);
+        //     });
     });
 });
 
