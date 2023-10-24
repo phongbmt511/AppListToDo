@@ -167,41 +167,28 @@
 //             console.log("Error");
 //         });
 // });
-// Function to handle the add task event
+
+// function add task
 function addTask() {
-    // Retrieve task details from input fields
     const title = document.getElementById("title").value;
     const deadline = document.getElementById("deadline").value;
-
-    // Create a task object
     const task = {
         title,
         deadline,
+        completed: false,
     };
-
-    // Get the existing tasks from localStorage or initialize an empty array
     let tasks = JSON.parse(localStorage.getItem("tasks")) || [];
-
-    // Add the new task to the array
     tasks.push(task);
-
-    // Save the updated tasks array to localStorage
     localStorage.setItem("tasks", JSON.stringify(tasks));
-
-    // Update the display to show the new task
     updateTaskList(tasks);
-
-    // Clear input fields
     document.getElementById("title").value = "";
     document.getElementById("deadline").value = "";
 }
 
-// Function to update the task list on the screen
+// function update task
 function updateTaskList(tasks) {
     const content = document.getElementById("content");
-    content.innerHTML = ""; // Clear the current list
-
-    // Loop through tasks and create list items to display them
+    content.innerHTML = "";
     tasks.forEach((task, index) => {
         const listItem = document.createElement("li");
         listItem.textContent = `Title : ${task.title}, Deadline : ${task.deadline}`;
@@ -209,93 +196,97 @@ function updateTaskList(tasks) {
     });
 }
 
-// Add an event listener to the "Add" button
 document.getElementById("addBtn").addEventListener("click", addTask);
 
-// Initialize the task list on page load
 const tasks = JSON.parse(localStorage.getItem("tasks")) || [];
 updateTaskList(tasks);
 
-// Function to update the task list on the screen
+// function update task list
 function updateTaskList(tasks) {
     const content = document.getElementById("content");
-    content.innerHTML = ""; // Clear the current list
-
-    // Loop through tasks and create list items to display them with icons
+    content.innerHTML = "";
     tasks.forEach((task, index) => {
         const listItem = document.createElement("li");
-        listItem.style.color = "white"; // Apply white text color
+        listItem.style.color = task.completed ? "gray" : "white";
+
+        const checkbox = document.createElement("input");
+        checkbox.type = "checkbox";
+        checkbox.style.margin = "5px";
+        checkbox.checked = task.completed;
+        checkbox.addEventListener("change", function () {
+            if (checkbox.checked) {
+                const confirmation = confirm("Completed !");
+                if (confirmation) {
+                    task.completed = true;
+                    listItem.style.textDecoration = "line-through";
+                } else {
+                    checkbox.checked = false;
+                }
+            } else {
+                task.completed = false;
+                listItem.style.textDecoration = "none";
+            }
+            localStorage.setItem("tasks", JSON.stringify(tasks));
+        });
 
         const taskText = document.createElement("span");
         taskText.textContent = `Title: ${task.title}, Deadline: ${task.deadline}`;
 
-        // Create an edit icon
         const editIcon = document.createElement("i");
         editIcon.classList.add("fas", "fa-edit");
-        editIcon.style.marginLeft = "10px"; // Add some spacing
+        editIcon.style.marginLeft = "10px";
 
-        // Create a delete icon
         const deleteIcon = document.createElement("i");
         deleteIcon.classList.add("fas", "fa-trash-alt");
-        deleteIcon.style.marginLeft = "10px"; // Add some spacing
+        deleteIcon.style.marginLeft = "10px";
 
+        listItem.appendChild(checkbox);
         listItem.appendChild(taskText);
         listItem.appendChild(editIcon);
         listItem.appendChild(deleteIcon);
 
+        if (task.completed) {
+            listItem.style.textDecoration = "line-through";
+        }
+
         content.appendChild(listItem);
     });
 }
+
 // ------------------------------
-// Add event handlers for the delete icons
+// icon delete
 const deleteIcons = document.getElementsByClassName("fa-trash-alt");
 for (let i = 0; i < deleteIcons.length; i++) {
     deleteIcons[i].addEventListener("click", function () {
-        const index = i; // Get the index of the clicked task
+        const index = i;
         const tasks = JSON.parse(localStorage.getItem("tasks")) || [];
-
         if (index >= 0 && index < tasks.length) {
-            // Remove the task at the specified index
             tasks.splice(index, 1);
-
-            // Save the updated tasks array back to localStorage
             localStorage.setItem("tasks", JSON.stringify(tasks));
-
-            // Update the display
             updateTaskList(tasks);
         }
     });
 }
-// 
-// Add event handlers for the edit icons
+
+// icon edit
 const editIcons = document.getElementsByClassName("fa-edit");
 for (let i = 0; i < editIcons.length; i++) {
     editIcons[i].addEventListener("click", function () {
-        const index = i; // Get the index of the clicked task
+        const index = i;
         const tasks = JSON.parse(localStorage.getItem("tasks")) || [];
 
         if (index >= 0 && index < tasks.length) {
-            // Display a modal or form to edit the task
-            const editedTitle = prompt("Edit Task Title:", tasks[index].title);
+            const editedTitle = prompt("Edit Title:", tasks[index].title);
             const editedDeadline = prompt("Edit Deadline:", tasks[index].deadline);
-
             if (editedTitle !== null && editedDeadline !== null) {
-                // Update the task title and deadline
                 tasks[index].title = editedTitle;
                 tasks[index].deadline = editedDeadline;
-
-                // Save the updated tasks array back to localStorage
                 localStorage.setItem("tasks", JSON.stringify(tasks));
-
-                // Update the display
                 updateTaskList(tasks);
             }
         }
     });
 }
-
-// 
-
 
 // ------------------------------------------------------------------------------------------------------
 // ham luu background vao localstorage 

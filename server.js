@@ -27,6 +27,9 @@ app.use('/api/chat', chatRouter);
 app.get('/chat', (req, res) => {
     res.sendFile(__dirname + '/Chat.html')
 })
+//
+
+
 // su kien socket io
 const activeUsers = new Set();
 io.on("connection", (socket) => {
