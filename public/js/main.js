@@ -314,7 +314,7 @@ if (savedBackground) {
 
 // su kien click thay doi background
 document.getElementById('changeBackgroundButton').addEventListener('click', function () {
-    const newBackgroundUrl = prompt('Nhập URL background mới :');
+    const newBackgroundUrl = prompt('URL background new :');
     if (newBackgroundUrl) {
         setBodyBackground(newBackgroundUrl);
         saveBackgroundToLocalStorage(newBackgroundUrl);
