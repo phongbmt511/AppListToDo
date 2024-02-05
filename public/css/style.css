@@ -185,3 +185,19 @@ body {
 .fa-edit {
   cursor: pointer;
 }
+/* ------ */
+@media (max-width: 767px) {
+  /* Adjust styles for smaller screens here */
+  #title {
+    margin-bottom: 10px;
+  }
+  .todo-app {
+    width: 90%;
+  }
+
+  .input-section {
+    flex-direction: row;
+    flex-wrap: wrap;
+    margin-bottom: 150px;
+  }
+}
