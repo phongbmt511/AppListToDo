@@ -198,6 +198,6 @@ body {
   .input-section {
     flex-direction: row;
     flex-wrap: wrap;
-    margin-bottom: 150px;
+    margin-bottom: 120px;
   }
 }

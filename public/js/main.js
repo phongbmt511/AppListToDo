@@ -60,12 +60,10 @@ function updateTaskList(tasks) {
         });
 
         const taskText = document.createElement("span");
-        taskText.textContent = `Title: ${task.title}, Deadline: ${task.deadline}`;
-
+        taskText.textContent = `Title : ${task.title} , Deadline : ${task.deadline}`;
         const editIcon = document.createElement("i");
         editIcon.classList.add("fas", "fa-edit");
         editIcon.style.marginLeft = "10px";
-
         const deleteIcon = document.createElement("i");
         deleteIcon.classList.add("fas", "fa-trash-alt");
         deleteIcon.style.marginLeft = "10px";
